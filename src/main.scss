@@ -1,0 +1,69 @@
+// SASS documentation: sass-lang.com //
+
+// Import partials //
+@import './resets';
+@import './variables';
+
+// Function // Should be used to compute values and return values.
+@function weight($weight-name) {
+    @return map-get($font-weights, $weight-name); // changed the map-get to weight with the @function.
+}
+
+// Mixins // Should define styles.
+@mixin flexCenter($direction) {  // can also have an argument like a function
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: $direction;
+}
+
+// mixins can take boolean and if statements 
+
+@mixin theme($light-theme: true) {  // boolean value
+    @if $light-theme {  // if statement
+        background: lighten($primary-color, 100%);
+        color: darken($text-color, 100%);
+    }
+}
+
+@mixin mobile {
+    @media (max-width: $mobile) {
+        @content;
+    }
+}
+
+body {
+    background-color: $primary-color;
+    color: $text-color;
+}
+
+.main {
+    @include flexCenter(row);  // flexCenter(column), you can change the value.
+    width: 80% - 40%;  // in Sass the calc() isnt needed, unless you mix value types calc(80% -400px).
+    margin: 0 auto;
+
+    #{&}__paragraph1 {  // Sass nesting, use the & to avoid writing out the whole class name each time.
+        font-weight: weight(bold);
+        // font-weight: map-get($font-weights, bold);  
+    }
+
+    &:hover {
+        color: pink;
+    }
+
+    #{&}__paragraph2 {
+        @extend .main__paragraph1;
+
+        &:hover {
+            color: $accent-color;
+        }
+    }
+
+    @include mobile {  // media query for mobile
+        flex-direction: column;
+    }
+}
+
+.light {
+    @include theme($light-theme: false);
+}
