@@ -1,8 +1,8 @@
 // SASS documentation: sass-lang.com //
 
 // Import partials //
-@import './resets';
-@import './variables';
+@use './resets';
+@use './variables';
 
 // Function // Should be used to compute values and return values.
 @function weight($weight-name) {

@@ -4,10 +4,22 @@ $primary-color: #272727;
 $accent-color: #ff652f;
 $text-color: #fff;
 
-$font-weights : (  // Sass map // Can be done with color, size etc.
+// Sass map //
+
+$font-weights : (  // Can be done with color, size etc.
     "regular": 400,
     "medium": 500,
     "bold": 700
 );
 
 $mobile: 800px;
+
+// as //
+@use '../scss' as c; 
+
+// @use '../scss/colors' as *;  // * sets the name space to nothing
+
+.card {
+    font-size: c.$font-size;  // as c : changes the name space to c (can be anything i set it to)
+    // color: $blue;
+}
